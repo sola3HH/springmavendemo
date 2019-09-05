@@ -1,11 +1,11 @@
 package com.hh.springmavendemo.dao;
 
 import com.hh.springmavendemo.model.po.User;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Mapper
+@Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Long id);
 

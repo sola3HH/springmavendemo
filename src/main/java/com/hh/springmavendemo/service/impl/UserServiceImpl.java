@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper){
+    public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
