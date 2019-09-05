@@ -1,0 +1,30 @@
+swagger:
+  enable: true
+  basePackage: com.hh.springmavendemo.controller
+  title: User Login
+  description: API DOC of User Login
+  version: v1.0
+
+login:
+  auth:
+    app-passes:
+      - { app-id: 101, app-secret: 101 }
+      - { app-id: 102, app-secret: 102 }
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/userlogin?useUnicode=true&characterEncoding=utf-8&useSSL=true&servertimezone=Asia/Shanghai
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: zqx22588
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.hh.springmavendemo.dao
+
+logging:
+  level:
+    com:
+      hh:
+        springmavendemo:
+          dao: debug
