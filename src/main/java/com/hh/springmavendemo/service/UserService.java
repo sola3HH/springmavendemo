@@ -5,9 +5,11 @@ import com.hh.springmavendemo.model.po.User;
 import java.util.List;
 
 public interface UserService {
-    User getUserById(int id);
+    User getUserById(Integer id);
 
     void insertUser(User user);
+
+    void deleteUserById(Integer id);
 
     List<User> showAllUser();
 }

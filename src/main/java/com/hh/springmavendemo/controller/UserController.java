@@ -2,9 +2,10 @@ package com.hh.springmavendemo.controller;
 
 import com.hh.springmavendemo.common.model.ResultDTO;
 import com.hh.springmavendemo.common.model.ResultMap;
-import com.hh.springmavendemo.model.po.User;
+import com.hh.springmavendemo.model.dto.DeleteRequest;
 import com.hh.springmavendemo.model.dto.RegisterRequest;
 import com.hh.springmavendemo.model.dto.ShowRequest;
+import com.hh.springmavendemo.model.po.User;
 import com.hh.springmavendemo.service.AuthService;
 import com.hh.springmavendemo.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -37,8 +36,19 @@ public class UserController {
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return null;
         }
-        User user = new User(registerRequest.getName(), registerRequest.getPassword());
+        User user = new User(registerRequest.getUsername(), registerRequest.getPassword());
         userService.insertUser(user);
+        return ResultMap.successMsg();
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ApiOperation(value = "delete a user", notes = "Delete User")
+    public ResultDTO register(HttpServletResponse httpServletResponse, @RequestBody DeleteRequest deleteRequest) {
+        if (!authService.isValidPass(deleteRequest.getAppId(), deleteRequest.getAppSecret())) {
+            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return null;
+        }
+        userService.deleteUserById(deleteRequest.getId());
         return ResultMap.successMsg();
     }
 
