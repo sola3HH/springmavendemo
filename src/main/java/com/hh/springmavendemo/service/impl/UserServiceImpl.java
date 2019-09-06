@@ -28,11 +28,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(Integer id){
-        userMapper.deleteByPrimaryKey(id);
-    }
-
-    @Override
     public List<User> showAllUser() {
         return userMapper.selectAll();
     }

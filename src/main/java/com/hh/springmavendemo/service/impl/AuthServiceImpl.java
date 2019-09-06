@@ -14,7 +14,7 @@ import java.util.Map;
 public class AuthServiceImpl implements AuthService, InitializingBean {
     private final AuthConfig authConfig;
 
-    Map<String, String> appPassMap;
+    private Map<String, String> appPassMap;
 
     @Override
     public void afterPropertiesSet() throws Exception {

@@ -9,7 +9,5 @@ public interface UserService {
 
     void insertUser(User user);
 
-    void deleteUserById(Integer id);
-
     List<User> showAllUser();
 }

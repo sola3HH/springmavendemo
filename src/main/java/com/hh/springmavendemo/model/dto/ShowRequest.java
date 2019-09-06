@@ -6,4 +6,5 @@ import lombok.Data;
 public class ShowRequest {
     private String appId;
     private String appSecret;
+    private String username;
 }

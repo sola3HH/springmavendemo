@@ -1,8 +1,8 @@
 package com.hh.springmavendemo.controller;
 
+import com.hh.springmavendemo.common.ExceptionEnum;
 import com.hh.springmavendemo.common.model.ResultDTO;
 import com.hh.springmavendemo.common.model.ResultMap;
-import com.hh.springmavendemo.model.dto.DeleteRequest;
 import com.hh.springmavendemo.model.dto.RegisterRequest;
 import com.hh.springmavendemo.model.dto.ShowRequest;
 import com.hh.springmavendemo.model.po.User;
@@ -33,32 +33,31 @@ public class UserController {
     @ApiOperation(value = "Register a new user", notes = "Register User")
     public ResultDTO register(HttpServletResponse httpServletResponse, @RequestBody RegisterRequest registerRequest) {
         if (!authService.isValidPass(registerRequest.getAppId(), registerRequest.getAppSecret())) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return null;
+            return ResultMap.getCustomException(ExceptionEnum.AUTHENTIFICATION_FAILED);
+        }
+        if(registerRequest.getUsername().isEmpty()||registerRequest.getPassword().isEmpty()) {
+            return ResultMap.getCustomException(ExceptionEnum.ILLEGAL_ARGUMENT);
         }
         User user = new User(registerRequest.getUsername(), registerRequest.getPassword());
         userService.insertUser(user);
         return ResultMap.successMsg();
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    @ApiOperation(value = "delete a user", notes = "Delete User")
-    public ResultDTO register(HttpServletResponse httpServletResponse, @RequestBody DeleteRequest deleteRequest) {
-        if (!authService.isValidPass(deleteRequest.getAppId(), deleteRequest.getAppSecret())) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return null;
-        }
-        userService.deleteUserById(deleteRequest.getId());
-        return ResultMap.successMsg();
-    }
 
     @RequestMapping(value = "/show", method = RequestMethod.POST)
-    @ApiOperation(value = "Show userList", notes = "Show UserList   ")
+    @ApiOperation(value = "Show userList", notes = "Show UserList")
     public ResultDTO show(HttpServletResponse httpServletResponse, @RequestBody ShowRequest showRequest) {
         if (!authService.isValidPass(showRequest.getAppId(), showRequest.getAppSecret())) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return null;
+            return ResultMap.getCustomException(ExceptionEnum.AUTHENTIFICATION_FAILED);
         }
-        return ResultMap.successWithObject(userService.showAllUser());
+        if(showRequest.getUsername().isEmpty()) {
+            return ResultMap.getCustomException(ExceptionEnum.ILLEGAL_ARGUMENT);
+        }
+        for(User user: userService.showAllUser()){
+            if(user.getUsername().equals(showRequest.getUsername())) {
+                return ResultMap.successWithObject(user);
+            }
+        }
+        return ResultMap.getCustomException(ExceptionEnum.USER_NOTFOUND);
     }
 }
