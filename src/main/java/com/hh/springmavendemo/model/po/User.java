@@ -4,12 +4,20 @@ import lombok.Data;
 
 @Data
 public class User {
-    private Integer id;
+    private Long id;
 
-    private String name;
+    private String username;
 
     private String password;
 
-    public User(String name, String password) {
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(Long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
     }
 }
