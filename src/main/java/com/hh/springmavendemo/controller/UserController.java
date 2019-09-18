@@ -38,6 +38,11 @@ public class UserController {
         if(registerRequest.getUsername().isEmpty()||registerRequest.getPassword().isEmpty()) {
             return ResultMap.getCustomException(ExceptionEnum.ILLEGAL_ARGUMENT);
         }
+        for(User user: userService.showAllUser()){
+            if(user.getUsername().equals(registerRequest.getUsername())){
+                return ResultMap.getCustomException(ExceptionEnum.USER_EXISTS);
+            }
+        }
         User user = new User(registerRequest.getUsername(), registerRequest.getPassword());
         userService.insertUser(user);
         return ResultMap.successMsg();
