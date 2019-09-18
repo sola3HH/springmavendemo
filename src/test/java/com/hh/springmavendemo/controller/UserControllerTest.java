@@ -45,7 +45,7 @@ public class UserControllerTest {
 
     @Test
     public void register() throws Exception {
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate(); //用于测试在服务器中运行的controller
         String url = "http://localhost:8080/user/save";
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setAppId("101");

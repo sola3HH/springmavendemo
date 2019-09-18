@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录系统</title>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#register").click(function () {
+                var appid = $("#appid1").val();
+                var appsecret = $("#appsecret1").val();
+                var username = $("#username1").val();
+                var password = $("#password1").val();
+
+                var data = {
+                    appId: appid,
+                    appSecret: appsecret,
+                    username: username,
+                    password: password
+                };
+
+                $.ajax({
+                    url: "http://localhost:8080/user/save",
+                    type: "post",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data.msg === "成功") {
+                            console.log("注册成功");
+                            window.alert("注册成功");
+                        } else {
+                            window.alert(data.msg);
+                        }
+                    },
+                    error: function (xhr) {
+                        window.alert(xhr.getAllResponseHeaders());
+                    }
+                });
+            });
+
+            $("#query").click(function () {
+                var appid = $("#appid2").val();
+                var appsecret = $("#appsecret2").val();
+                var username = $("#username2").val();
+
+                var data = {
+                    appId: appid,
+                    appSecret: appsecret,
+                    username: username
+                }
+
+                $.ajax({
+                    url: "http://localhost:8080/user/show",
+                    type: "post",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data.msg === "成功") {
+                            $("#result").html(JSON.stringify(data.result));
+                        } else {
+                            window.alert(data.msg);
+                        }
+                    },
+                    error: function (xhr) {
+                        window.alert(xhr.getAllResponseHeaders());
+                    }
+                });
+            });
+
+        });
+
+    </script>
+
+    <style>
+        .grey {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 500px;
+            background: #F7F7F7;
+            padding: 25px 15px 25px 10px;
+            font: 12px Georgia, "Times New Roman", Times, serif;
+            color: #888;
+            text-shadow: 1px 1px 1px #FFF;
+            border: 1px solid #E4E4E4;
+        }
+
+        .grey h1 {
+            font-size: 25px;
+            padding: 0px 0px 10px 40px;
+            display: block;
+            border-bottom: 1px solid #E4E4E4;
+            margin: -10px -15px 30px -10px;
+            color: #888;
+        }
+
+        .grey h1 > span {
+            display: block;
+            font-size: 11px;
+        }
+
+        .grey label {
+            display: block;
+            margin: 0px;
+        }
+
+        .grey label > span {
+            float: left;
+            width: 20%;
+            text-align: right;
+            padding-right: 10px;
+            margin-top: 10px;
+            color: #888;
+        }
+
+        .grey input[type="text"] {
+            border: 1px solid #DADADA;
+            color: #888;
+            height: 30px;
+            margin-bottom: 16px;
+            margin-right: 6px;
+            margin-top: 2px;
+            outline: 0 none;
+            padding: 3px 3px 3px 5px;
+            width: 70%;
+            font-size: 12px;
+            line-height: 15px;
+            box-shadow: inset 0px 1px 4px #ECECEC;
+            -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+            -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+        }
+
+        .grey textarea {
+            padding: 5px 3px 3px 5px;
+            margin-bottom: 16px;
+            margin-right: 6px;
+            margin-top: 2px;
+            font-size: 12px;
+            line-height: 15px;
+            width: 70%;
+            height: 30px;
+        }
+
+        .grey .button {
+            background: #E27575;
+            border: none;
+            padding: 10px 25px 10px 25px;
+            color: #FFF;
+            box-shadow: 1px 1px 5px #B6B6B6;
+            border-radius: 3px;
+            text-shadow: 1px 1px 1px #9E3F3F;
+            cursor: pointer;
+        }
+
+        .grey .button:hover {
+            background: #CF7A7A
+        }
+
+    </style>
+</head>
+
+<body>
+<form class="grey">
+    <h1>注册
+        <span>register</span>
+    </h1>
+
+    <label>
+        <span>AppID :</span>
+        <input type="text" id="appid1" value="101">
+    </label>
+
+    <label>
+        <span>AppSecret :</span>
+        <input type="text" id="appsecret1" value="101">
+    </label>
+
+    <label>
+        <span>用户名 :</span>
+        <input type="text" id="username1" placeholder="Your Account">
+    </label>
+
+    <label>
+        <span>密码 :</span>
+        <input type="text" id="password1" placeholder="Your Password">
+    </label>
+
+    <label>
+        <span>&nbsp;</span>
+        <input type="button" id="register" class="button" value="register">
+    </label>
+</form>
+
+<form class="grey">
+    <h1>查询
+        <span>query</span>
+    </h1>
+
+    <label>
+        <span>AppID :</span>
+        <input type="text" id="appid2" value="101">
+    </label>
+
+    <label>
+        <span>AppSecret :</span>
+        <input type="text" id="appsecret2" value="101">
+    </label>
+
+    <label>
+        <span>用户名 :</span>
+        <input type="text" id="username2" placeholder="Your Account">
+    </label>
+
+    <label>
+        <span>查询结果 :</span>
+    </label>
+
+    <label>
+        <textarea id="result"></textarea>
+    </label>
+
+    <label>
+        <span>&nbsp;</span>
+        <input type="button" id="query" class="button" value="query">
+    </label>
+</form>
+</body>
+</html>
