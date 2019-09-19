@@ -10,4 +10,5 @@
   - 基于html, js(jequery,ajax), css, 的前端欢迎页面
   - 通过基于resttemplate的单元测试对启动的接口进行测试
   - travis CI 持续集成服务
-  - 剩余功能尚在开发中........
+    - www.travis-ci.org用于集成public repository
+    - www.travis-ci.com用于集成private repository
