@@ -12,3 +12,4 @@
   - travis CI 持续集成服务
     - www.travis-ci.org用于集成public repository
     - www.travis-ci.com用于集成private repository
+  - flyway实现数据库迁移
