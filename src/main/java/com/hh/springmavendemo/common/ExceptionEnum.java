@@ -8,7 +8,7 @@ import java.util.Map;
 public enum ExceptionEnum {
 
     SUCCESS(20000, "成功"),
-    UNEXPECTED_SERVER_ERROs(20001, "未知的内部错误"),
+    UNEXPECTED_SERVER_ERRO(20001, "未知的内部错误"),
     AUTHENTIFICATION_FAILED(2002,"app用户名密码错误"),
     ILLEGAL_ARGUMENT(20003, "参数不正确"),
     USER_NOTFOUND(20004,"用户不存在"),
