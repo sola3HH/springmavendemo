@@ -28,6 +28,13 @@ public class ResultMap {
         return dto;
     }
 
+    public static ResultDTO getCustomException(Exception e){
+        ResultDTO dto = new ResultDTO();
+        dto.setResultMessage(e.getMessage());
+        dto.setResultCode(ExceptionEnum.UNEXPECTED_SERVER_ERRO.getCode());
+        return dto;
+    }
+
     public static ResultDTO getCustomException(ExceptionEnum e){
         ResultDTO dto = new ResultDTO();
         dto.setResultMessage(e.getMessage());

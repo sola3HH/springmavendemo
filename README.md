@@ -4,6 +4,8 @@
 目前已有的内容：
   - 管理员登录的身份验证
   - 异常处理
+    - controller层的aop切面@Aspect
+    - ExceptionHandler统一异常处理@ControllerAdvice (二选一)
   - Dao层的数据库处理
   - 通过mybatis generator自动根据实体类生成的mapper
   - 适配swagger作为接口测试工具
@@ -13,3 +15,5 @@
     - www.travis-ci.org用于集成public repository
     - www.travis-ci.com用于集成private repository
   - 通过flyway实现数据库迁移
+  - 集成redis，通过缓存功能应付高并发
+  
