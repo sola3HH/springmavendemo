@@ -50,3 +50,10 @@ logging:
   level:
     root: debuf
     com.hh.springmavendemo.dao: debug
+
+threadpool:
+  corepoolsize: 5
+  maxpoolsize: 10
+  queuecapacity: 20000
+  keepaliveseconds: 60
+  threadnameprefix: partner-
