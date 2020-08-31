@@ -17,4 +17,5 @@
   - 通过flyway实现数据库迁移
   - 集成redis，通过缓存功能应付高并发
   - 配置Thread Pool实现多线程
+  - 添加restTemplate工具类实现发送http请求
   
