@@ -12,7 +12,10 @@ import com.hh.springmavendemo.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,17 +34,17 @@ public class UserController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ApiOperation(value = "Register a new user", notes = "Register User")
-    public ResultDTO register(HttpServletResponse httpServletResponse, @RequestBody RegisterRequest registerRequest) throws Throwable{
+    public ResultDTO register(HttpServletResponse httpServletResponse, @RequestBody RegisterRequest registerRequest) throws Throwable {
         if (!authService.isValidPass(registerRequest.getAppId(), registerRequest.getAppSecret())) {
 //            return ResultMap.getCustomException(ExceptionEnum.AUTHENTIFICATION_FAILED);
             throw new ProjectException(ExceptionEnum.AUTHENTIFICATION_FAILED);
         }
-        if(registerRequest.getUsername().isEmpty()||registerRequest.getPassword().isEmpty()) {
+        if (registerRequest.getUsername().isEmpty() || registerRequest.getPassword().isEmpty()) {
 //            return ResultMap.getCustomException(ExceptionEnum.ILLEGAL_ARGUMENT);
             throw new ProjectException(ExceptionEnum.ILLEGAL_ARGUMENT);
         }
-        for(User user: userService.showAllUser()){
-            if(user.getUsername().equals(registerRequest.getUsername())){
+        for (User user : userService.showAllUser()) {
+            if (user.getUsername().equals(registerRequest.getUsername())) {
 //                return ResultMap.getCustomException(ExceptionEnum.USER_EXISTS);
                 throw new ProjectException(ExceptionEnum.USER_EXISTS);
             }
@@ -60,12 +63,12 @@ public class UserController {
 //            return ResultMap.getCustomException(ExceptionEnum.AUTHENTIFICATION_FAILED);
             throw new ProjectException(ExceptionEnum.ILLEGAL_ARGUMENT);
         }
-        if(showRequest.getUsername().isEmpty()) {
+        if (showRequest.getUsername().isEmpty()) {
 //            return ResultMap.getCustomException(ExceptionEnum.ILLEGAL_ARGUMENT);
             throw new ProjectException(ExceptionEnum.ILLEGAL_ARGUMENT);
         }
-        for(User user: userService.showAllUser()){
-            if(user.getUsername().equals(showRequest.getUsername())) {
+        for (User user : userService.showAllUser()) {
+            if (user.getUsername().equals(showRequest.getUsername())) {
                 log.info("Successfully show user: " + user.getUsername());
                 return ResultMap.successWithObject(user);
             }
